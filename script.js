@@ -108,9 +108,36 @@ async function loadPdfLibraries(callback) {
           });
 }
 function attachEventListeners() {
-          document.querySelectorAll('.navbar-buttons button').forEach(button => {
-              button.addEventListener('click', () => showSection(button.getAttribute('onclick').match(/'([^']+)'/)[1]));
-          });
+  function attachEventListeners() {
+    // --- START OF NEW CODE TO ADD ---
+    const navMenu = document.getElementById('nav-menu');
+    const navToggle = document.getElementById('nav-toggle');
+    const overlay = document.getElementById('overlay');
+
+    // Function to close the menu
+    const closeMenu = () => {
+        navMenu.classList.remove('show');
+        overlay.classList.remove('show');
+    };
+
+    // Show menu when toggle is clicked
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+        overlay.classList.toggle('show');
+    });
+
+    // Hide menu when overlay is clicked
+    overlay.addEventListener('click', closeMenu);
+// Handles clicks on the main navigation buttons
+    document.querySelectorAll('.navbar-buttons button').forEach(button => {
+        button.addEventListener('click', () => {
+            // This part shows the correct section (like 'Home', 'Attendance', etc.)
+            showSection(button.getAttribute('onclick').match(/'([^']+)'/)[1]);
+            
+            // This part closes the mobile menu after you click a button
+            closeMenu();
+        });
+    });
           document.getElementById('sessional1Btn').addEventListener('click', () => setMode('Sessional 1'));
           document.getElementById('sessional2Btn').addEventListener('click', () => setMode('Sessional 2'));
           document.getElementById('continuousBtn').addEventListener('click', () => setMode('Continuous'));
@@ -1679,5 +1706,6 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
