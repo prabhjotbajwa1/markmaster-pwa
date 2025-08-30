@@ -108,83 +108,78 @@ async function loadPdfLibraries(callback) {
           });
 }
 function attachEventListeners() {
-  function attachEventListeners() {
-    // --- START OF NEW CODE TO ADD ---
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
     const overlay = document.getElementById('overlay');
 
-    // Function to close the menu
     const closeMenu = () => {
         navMenu.classList.remove('show');
         overlay.classList.remove('show');
     };
 
-    // Show menu when toggle is clicked
     navToggle.addEventListener('click', () => {
         navMenu.classList.toggle('show');
         overlay.classList.toggle('show');
     });
 
-    // Hide menu when overlay is clicked
     overlay.addEventListener('click', closeMenu);
-// Handles clicks on the main navigation buttons
-    document.querySelectorAll('.navbar-buttons button').forEach(button => {
-        button.addEventListener('click', () => {
-            // This part shows the correct section (like 'Home', 'Attendance', etc.)
-            showSection(button.getAttribute('onclick').match(/'([^']+)'/)[1]);
-            
-            // This part closes the mobile menu after you click a button
-            closeMenu();
-        });
-    });
-          document.getElementById('sessional1Btn').addEventListener('click', () => setMode('Sessional 1'));
-          document.getElementById('sessional2Btn').addEventListener('click', () => setMode('Sessional 2'));
-          document.getElementById('continuousBtn').addEventListener('click', () => setMode('Continuous'));
-          document.getElementById('semesterSelect').addEventListener('change', () => {
-              populateSubjects(document.getElementById('semesterSelect'), document.getElementById('subjectSelect'));
-              resetMarksEntryForm();
-          });
-          document.getElementById('subjectSelect').addEventListener('change', resetMarksEntryForm);
-          document.getElementById('batchCountSelect').addEventListener('change', generateBatchInputs);
-          ['sessionInput', 'semesterSelect', 'subjectSelect'].forEach(id => document.getElementById(id).addEventListener('change', updateLoadButtonState));
-          document.getElementById('loadDataBtn').addEventListener('click', loadMarksData);
-          document.getElementById('submitBtn').addEventListener('click', saveData);
-          document.getElementById('lockBtn').addEventListener('click', lockData);
-          document.getElementById('marksTableContainer').addEventListener('keydown', handleTableInputKeydown);
-          document.getElementById('marksTableContainer').addEventListener('paste', handleTablePaste);
-          document.getElementById('marksTableContainer').addEventListener('input', handleTableInputValidation);
-          document.getElementById('attendanceSemesterSelect').addEventListener('change', () => populateSubjects(document.getElementById('attendanceSemesterSelect'), document.getElementById('attendanceSubjectSelect')));
-          document.getElementById('attendanceSubjectSelect').addEventListener('change', toggleBatchSelector);
-          ['attendanceSessionSelect', 'attendanceSemesterSelect', 'attendanceSubjectSelect', 'attendanceTeacherSelect'].forEach(id => document.getElementById(id).addEventListener('change', updateAttendanceLoadButton));
-          document.getElementById('loadAttendanceBtn').addEventListener('click', loadAttendance);
-         document.getElementById('submitAttendanceBtn').addEventListener('click', submitAttendance);
-         document.getElementById('backToSelectionBtn').addEventListener('click', showAttendanceSelection);
-         document.getElementById('loadAttendanceRegisterBtn').addEventListener('click', handleAttendanceRegisterReport);
-         document.getElementById('exportRegisterPdfBtn').addEventListener('click', exportAttendanceRegisterAsPDF);
-          document.getElementById('reportSemesterSelect').addEventListener('change', () => populateSubjects(document.getElementById('reportSemesterSelect'), document.getElementById('reportSubjectSelect'), true));
-          document.getElementById('reportSubjectSelect').addEventListener('change', toggleReportBatchSelector);
-          document.getElementById('generateFoilBtn').addEventListener('click', () => handleReportGeneration('Foil'));
-          document.getElementById('generateContinuousBtn').addEventListener('click', () => handleReportGeneration('Continuous'));
-          document.getElementById('generateFinalBtn').addEventListener('click', () => handleReportGeneration('Final'));
-          document.getElementById('printBtn').addEventListener('click', () => window.print());
-          document.getElementById('exportPdfBtn').addEventListener('click', exportFoilReportAsPDF);
-          document.getElementById('exportAttendancePdfBtn').addEventListener('click', exportAttendanceReportAsPDF);
-          document.getElementById('exportConsolidatedPdfBtn').addEventListener('click', exportConsolidatedReportAsPDF);
-          document.getElementById('generateAttendanceReportBtn').addEventListener('click', handleAttendanceReport);
-          document.getElementById('generateConsolidatedReportBtn').addEventListener('click', handleConsolidatedReport);
-          document.getElementById('generateReportCardBtn').addEventListener('click', handleReportCardGeneration);
-          document.getElementById('exportReportCardPdfBtn').addEventListener('click', exportReportCardsAsPDF);
-          document.getElementById('reportCardSemesterSelect').addEventListener('change', populateReportCardRollNumbers);
-          ['reportCardSessionSelect', 'reportCardSemesterSelect', 'reportCardSessionalSelect', 'reportCardRollNoSelect'].forEach(id => {
-              document.getElementById(id).addEventListener('change', () => {
-                  document.getElementById('generateReportCardBtn').classList.remove('active');
-                  document.getElementById('reportCardOutput').innerHTML = '';
-                  document.getElementById('reportCardActionButtons').style.display = 'none';
-              });
-          });
-          document.getElementById('statusSemesterSelect').addEventListener('change', loadStatusDashboard);
-          document.getElementById('statusSessionSelect').addEventListener('change', loadStatusDashboard);
+
+    // This combined loop handles showing the section AND closing the menu
+    document.querySelectorAll('.navbar-buttons button').forEach(button => {
+        button.addEventListener('click', () => {
+            showSection(button.getAttribute('onclick').match(/'([^']+)'/)[1]);
+            closeMenu();
+        });
+    });
+
+    // --- All your other original event listeners remain below ---
+    document.getElementById('sessional1Btn').addEventListener('click', () => setMode('Sessional 1'));
+    document.getElementById('sessional2Btn').addEventListener('click', () => setMode('Sessional 2'));
+    document.getElementById('continuousBtn').addEventListener('click', () => setMode('Continuous'));
+    document.getElementById('semesterSelect').addEventListener('change', () => {
+        populateSubjects(document.getElementById('semesterSelect'), document.getElementById('subjectSelect'));
+        resetMarksEntryForm();
+    });
+    document.getElementById('subjectSelect').addEventListener('change', resetMarksEntryForm);
+    document.getElementById('batchCountSelect').addEventListener('change', generateBatchInputs);
+    ['sessionInput', 'semesterSelect', 'subjectSelect'].forEach(id => document.getElementById(id).addEventListener('change', updateLoadButtonState));
+    document.getElementById('loadDataBtn').addEventListener('click', loadMarksData);
+    document.getElementById('submitBtn').addEventListener('click', saveData);
+    document.getElementById('lockBtn').addEventListener('click', lockData);
+    document.getElementById('marksTableContainer').addEventListener('keydown', handleTableInputKeydown);
+    document.getElementById('marksTableContainer').addEventListener('paste', handleTablePaste);
+    document.getElementById('marksTableContainer').addEventListener('input', handleTableInputValidation);
+    document.getElementById('attendanceSemesterSelect').addEventListener('change', () => populateSubjects(document.getElementById('attendanceSemesterSelect'), document.getElementById('attendanceSubjectSelect')));
+    document.getElementById('attendanceSubjectSelect').addEventListener('change', toggleBatchSelector);
+    ['attendanceSessionSelect', 'attendanceSemesterSelect', 'attendanceSubjectSelect', 'attendanceTeacherSelect'].forEach(id => document.getElementById(id).addEventListener('change', updateAttendanceLoadButton));
+    document.getElementById('loadAttendanceBtn').addEventListener('click', loadAttendance);
+    document.getElementById('submitAttendanceBtn').addEventListener('click', submitAttendance);
+    document.getElementById('backToSelectionBtn').addEventListener('click', showAttendanceSelection);
+    document.getElementById('loadAttendanceRegisterBtn').addEventListener('click', handleAttendanceRegisterReport);
+    document.getElementById('exportRegisterPdfBtn').addEventListener('click', exportAttendanceRegisterAsPDF);
+    document.getElementById('reportSemesterSelect').addEventListener('change', () => populateSubjects(document.getElementById('reportSemesterSelect'), document.getElementById('reportSubjectSelect'), true));
+    document.getElementById('reportSubjectSelect').addEventListener('change', toggleReportBatchSelector);
+    document.getElementById('generateFoilBtn').addEventListener('click', () => handleReportGeneration('Foil'));
+    document.getElementById('generateContinuousBtn').addEventListener('click', () => handleReportGeneration('Continuous'));
+    document.getElementById('generateFinalBtn').addEventListener('click', () => handleReportGeneration('Final'));
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    document.getElementById('exportPdfBtn').addEventListener('click', exportFoilReportAsPDF);
+    document.getElementById('exportAttendancePdfBtn').addEventListener('click', exportAttendanceReportAsPDF);
+    document.getElementById('exportConsolidatedPdfBtn').addEventListener('click', exportConsolidatedReportAsPDF);
+    document.getElementById('generateAttendanceReportBtn').addEventListener('click', handleAttendanceReport);
+    document.getElementById('generateConsolidatedReportBtn').addEventListener('click', handleConsolidatedReport);
+    document.getElementById('generateReportCardBtn').addEventListener('click', handleReportCardGeneration);
+    document.getElementById('exportReportCardPdfBtn').addEventListener('click', exportReportCardsAsPDF);
+    document.getElementById('reportCardSemesterSelect').addEventListener('change', populateReportCardRollNumbers);
+    ['reportCardSessionSelect', 'reportCardSemesterSelect', 'reportCardSessionalSelect', 'reportCardRollNoSelect'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+            document.getElementById('generateReportCardBtn').classList.remove('active');
+            document.getElementById('reportCardOutput').innerHTML = '';
+            document.getElementById('reportCardActionButtons').style.display = 'none';
+        });
+    });
+    document.getElementById('statusSemesterSelect').addEventListener('change', loadStatusDashboard);
+    document.getElementById('statusSessionSelect').addEventListener('change', loadStatusDashboard);
 }
 function setupDropdowns(data) {
           allSubjects = data.subjects;
@@ -1706,6 +1701,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
