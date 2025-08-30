@@ -3,7 +3,7 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFQicTtfCSBXYQvTIP56NRGVvnwj4YTbuBBLSWezR0PYOEWPDbKzriUEsf05sq0jRB/exec"; 
 // -----------------------------------------
 
-const CLIENT_ID = "777419084569-u6rcrnoer8mdji2hcjtia13l30t2noas.apps.googleusercontent.com"; // Your Client ID
+const CLIENT_ID = "777419084569-jf0dd0sd3tkla6iqmbd99tp7o7ttrdip.apps.googleusercontent.com"; // Your Client ID
 
 // --- Global Variables ---
 let userAuthToken = null;
@@ -1679,3 +1679,4 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
