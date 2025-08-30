@@ -51,6 +51,7 @@ async function initializeApp() {
 }
 
 // --- API Communication ---
+// --- API Communication ---
 async function callAppsScript(functionName, params = []) {
   if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === "PASTE_YOUR_WEB_APP_URL_HERE") {
       alert("Error: The Apps Script URL is not set in script.js. Please paste the URL and refresh.");
@@ -64,9 +65,9 @@ async function callAppsScript(functionName, params = []) {
         action: functionName,
         params: params,
         authToken: userAuthToken
-      }),
-      redirect: "follow"
+      })
     });
+
     const result = await res.json();
     if (result.status === "error") {
       throw new Error(result.message);
@@ -1676,4 +1677,5 @@ async function populateReportCardRollNumbers() {
           } catch(e) {
             // error handled
           }
+
 }
