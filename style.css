@@ -126,4 +126,71 @@ td:nth-child(4) { width: 150px; }
     thead { display: table-header-group; }
     .rotated-header { -webkit-transform: rotate(0); -moz-transform: rotate(0); -ms-transform: rotate(0); -o-transform: rotate(0); transform: rotate(0); position: static; text-align: center; white-space: normal; padding-top: 5px; }
     .rotate-text { vertical-align: top; height: auto; padding: 12px; }
+
+}
+/* --- Hamburger Menu Styles --- */
+.nav-toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* On mobile, show the hamburger button and prepare the slide-out menu */
+@media (max-width: 768px) {
+    .nav-toggle-btn {
+        display: block; /* Show the button on mobile */
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 280px;
+        background-color: var(--primary-color);
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        padding-top: 20px;
+    }
+
+    .nav-menu.show {
+        transform: translateX(0);
+    }
+
+    /* Original navbar buttons are now inside the slide-out menu */
+    .navbar-buttons {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .navbar-buttons button {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 15px 20px;
+        margin-left: 0;
+        border-radius: 0;
+    }
 }
