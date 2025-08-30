@@ -73,10 +73,10 @@
                         <div style="margin-top: 10px;">
                             <label for="attendanceLectureNo"><strong>Lecture No:</strong></label>
                             <input type="number" id="attendanceLectureNo" value="1" min="1" style="width: 80px;">
-                        </div>
-                        <button id="loadAttendanceBtn" disabled><i class="fa-solid fa-users"></i> Load Students to Take Attendance</button>
-                        <button id="loadAttendanceRegisterBtn" style="display: none;"><i class="fa-solid fa-calendar-alt"></i>Generate Attendance Register</button>
-                    </div>
+                        <div class="action-buttons-group">
+    <button id="loadAttendanceBtn" disabled><i class="fa-solid fa-users"></i> Load Students to Take Attendance</button>
+    <button id="loadAttendanceRegisterBtn" style="display: none;"><i class="fa-solid fa-calendar-alt"></i>Generate Attendance Register</button>
+</div>
                 </div>
                 <div id="attendanceContainer" class="card" style="display:none; margin-top:20px;">
                     <div id="attendanceStatusMessage" class="status-message" style="display: none;"></div>
@@ -214,3 +214,4 @@
 </body>
 
 </html>
+
