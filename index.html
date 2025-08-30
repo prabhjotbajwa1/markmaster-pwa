@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AcadVista</title>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div id="signin-container">
+        <h1>Welcome to AcadVista</h1>
+        <p>Please sign in with your authorized Google account to continue.</p>
+        <div id="google-signin-button"></div>
+    </div>
+
+    <div id="app-container" style="display:none;">
+        <div class="navbar no-print">
+            <div class="title">AcadVista ©</div>
+            <div class="navbar-buttons">
+                <button onclick="showSection('home')" class="active"><i class="fa-solid fa-house"></i>Home</button>
+                <button onclick="showSection('attendance')"><i class="fa-solid fa-user-check"></i>Attendance</button>
+                <button onclick="showSection('marks')"><i class="fa-solid fa-pencil-alt"></i>Enter Marks</button>
+                <button onclick="showSection('reports')"><i class="fa-solid fa-chart-bar"></i>Reports</button>
+                <button onclick="showSection('reportCard')"><i class="fa-solid fa-id-card"></i>Student Report Card</button>
+                <button onclick="showSection('status')"><i class="fa-solid fa-check-circle"></i>Status</button>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div id="home" class="section active">
+                <div class="card">
+                    <h1 id="welcomeTitle">Welcome to AcadVista</h1>
+                    <p style="color: var(--text-light);">Your comprehensive solution for managing student marks and attendance.</p>
+                    <ul>
+                        <li><b>Attendance:</b> Take daily, mobile-friendly attendance and generate automated reports.</li>
+                        <li><b>Enter Marks:</b> Input sessional and continuous assessment scores with dynamic batch support for practicals.</li>
+                        <li><b>Reports:</b> Generate detailed foil sheets, attendance reports, and consolidated summaries.</li>
+                        <li><b>Student Report Card:</b> Create and export individual or bulk sessional report cards.</li>
+                        <li><b>Status:</b> View a real-time dashboard of marks submission status.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="attendance" class="section">
+                <div class="card" id="attendanceSelectionCard">
+                    <h2><i class="fa-solid fa-user-check"></i> Take Attendance</h2>
+                    <div class="controls-grid">
+                        <select id="attendanceSessionSelect"><option>Select Session</option></select>
+                        <select id="attendanceSemesterSelect"><option>Select Semester</option></select>
+                        <select id="attendanceSubjectSelect"><option>Select Subject</option></select>
+                        <select id="attendanceBatchSelect" style="display: none;">
+                            <option value="">Select Batch</option>
+                            <option value="A">Batch A</option>
+                            <option value="B">Batch B</option>
+                            <option value="C">Batch C</option>
+                            <option value="D">Batch D</option>
+                        </select>
+                        <select id="attendanceTeacherSelect"><option>Select Teacher</option></select>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p><strong>Date:</strong> <span id="attendanceDate"></span></p>
+                        <div style="margin-top: 10px;">
+                            <label for="attendanceLectureNo"><strong>Lecture No:</strong></label>
+                            <input type="number" id="attendanceLectureNo" value="1" min="1" style="width: 80px;">
+                        </div>
+                        <button id="loadAttendanceBtn" disabled><i class="fa-solid fa-users"></i> Load Students to Take Attendance</button>
+                        <button id="loadAttendanceRegisterBtn" style="display: none;"><i class="fa-solid fa-calendar-alt"></i>Generate Attendance Register</button>
+                    </div>
+                </div>
+                <div id="attendanceContainer" class="card" style="display:none; margin-top:20px;">
+                    <div id="attendanceStatusMessage" class="status-message" style="display: none;"></div>
+                    <div id="attendanceSummary" class="attendance-summary-bar">
+                        <div id="attendanceSummaryCounters"></div>
+                        <div class="mark-all-toggle">
+                            <button class="all-p" onclick="markAllAttendance('P')">Mark All Present</button>
+                            <button class="all-a" onclick="markAllAttendance('A')">Mark All Absent</button>
+                        </div>
+                    </div>
+                    <div id="attendanceList"></div>
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <button id="submitAttendanceBtn" style="display:none;"><i class="fa-solid fa-save"></i>Submit Attendance</button>
+                        <button id="backToSelectionBtn" class="lock-btn" style="display:none;"><i class="fa-solid fa-arrow-left"></i> Change Selection</button>
+                    </div>
+                </div>
+                <div id="registerActionButtons" class="no-print" style="text-align: center; margin-top: 20px; display: none; gap: 10px; justify-content: center;">
+                    <button onclick="window.print()"><i class="fa-solid fa-print"></i> Print Register</button>
+                    <button id="exportRegisterPdfBtn"><i class="fa-solid fa-file-pdf"></i> Export Register PDF</button>
+                </div>
+            </div>
+            <div id="marks" class="section">
+                 <div class="card">
+                    <h2><i class="fa-solid fa-list-ol"></i> Step 1: Select Mode & Common Details</h2>
+                    <div class="action-buttons">
+                        <button id="sessional1Btn"><i class="fa-solid fa-pen-to-square"></i>Sessional 1</button>
+                        <button id="sessional2Btn"><i class="fa-solid fa-pen-to-square"></i>Sessional 2</button>
+                        <button id="continuousBtn"><i class="fa-solid fa-tasks"></i>Continuous Mode</button>
+                    </div>
+                    <div id="entryDetails" style="display:none;">
+                        <div class="controls-grid">
+                            <select id="sessionInput"><option>Select Session</option></select>
+                            <select id="semesterSelect"><option>Loading Semesters...</option></select>
+                            <select id="subjectSelect"><option>Select Semester First</option></select>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <button id="loadDataBtn" disabled><i class="fa-solid fa-users"></i>Load Student List</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="entryContainer" class="card" style="display:none;">
+                    <h2 id="entryTitle"><i class="fa-solid fa-marker"></i> Step 2: Fill / Edit Marks</h2>
+                    <div id="teacherDateContainer" style="display:none; margin-top: 20px;" class="controls-grid">
+                        <select id="teacherInput"><option value="">Select Teacher</option></select>
+                        <input type="date" id="dateInput">
+                    </div>
+                    <div id="practicalBatchContainer" style="display: none; margin-top: 20px;">
+                        <div class="controls-grid">
+                            <select id="batchCountSelect">
+                                <option value="">Select No. of Batches</option>
+                                <option value="2">2 Batches</option>
+                                <option value="3">3 Batches</option>
+                                <option value="4">4 Batches</option>
+                            </select>
+                        </div>
+                        <div id="batchDetailsInputs" class="controls-grid" style="margin-top: 15px;"></div>
+                    </div>
+                    <div id="statusMessage" class="status-message" style="display: none;"></div>
+                    <div id="marksTableContainer"></div>
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <button id="submitBtn" style="display:none;"><i class="fa-solid fa-save"></i>Save / Update Marks</button>
+                        <button id="lockBtn" class="lock-btn" style="display:none;"><i class="fa-solid fa-lock"></i>Finalize & Lock Marks</button>
+                    </div>
+                </div>
+            </div>
+            <div id="reports" class="section">
+                 <div class="card">
+                    <h2><i class="fa-solid fa-file-invoice"></i>Generate Reports</h2>
+                    <p style="color: var(--text-light);">Select criteria to generate academic or attendance reports.</p>
+                    <div class="controls-grid">
+                        <select id="reportSessionSelect"><option>Select Session</option></select>
+                        <select id="reportSemesterSelect"><option>Select Semester</option></select>
+                        <select id="reportSubjectSelect"><option>Select Subject</option></select>
+                        <select id="reportBatchSelect" style="display: none;">
+                            <option value="all">All Batches</option>
+                            <option value="A">Batch A</option>
+                            <option value="B">Batch B</option>
+                            <option value="C">Batch C</option>
+                            <option value="D">Batch D</option>
+                        </select>
+                    </div>
+                    <div class="action-buttons" style="margin-top: 20px;">
+                        <button id="generateFoilBtn"><i class="fa-solid fa-file-lines"></i>Register Foil</button>
+                        <button id="generateContinuousBtn"><i class="fa-solid fa-file-lines"></i>Continuous Mode</button>
+                        <button id="generateFinalBtn"><i class="fa-solid fa-file-lines"></i>Final Assessment</button>
+                        <button id="generateAttendanceReportBtn"><i class="fa-solid fa-user-check"></i>Subject Attendance</button>
+                        <button id="generateConsolidatedReportBtn"><i class="fa-solid fa-folder-open"></i>Consolidated Attendance</button>
+                    </div>
+                </div>
+                <div id="reportOutputContainer">
+                    <div id="reportOutput"></div>
+                    <div id="reportActionButtons" class="no-print" style="text-align: center; margin-top: 20px; display: none; gap: 10px; justify-content: center;">
+                        <button id="printBtn"><i class="fa-solid fa-print"></i> Print Report</button>
+                        <button id="exportPdfBtn" style="display: none;"><i class="fa-solid fa-file-pdf"></i> Export Academic PDF</button>
+                        <button id="exportAttendancePdfBtn" style="display: none;"><i class="fa-solid fa-file-pdf"></i> Export Attendance PDF</button>
+                        <button id="exportConsolidatedPdfBtn" style="display: none;"><i class="fa-solid fa-file-pdf"></i> Export Consolidated PDF</button>
+                    </div>
+                </div>
+            </div>
+            <div id="reportCard" class="section">
+                <div class="card">
+                    <h2><i class="fa-solid fa-user-graduate"></i> Generate Student Report Cards</h2>
+                    <div class="controls-grid">
+                         <select id="reportCardSessionSelect"><option value="">Select Session</option></select>
+                         <select id="reportCardSemesterSelect"><option value="">Select Semester</option></select>
+                         <select id="reportCardSessionalSelect"><option value="">Select Sessional</option><option>Sessional 1</option><option>Sessional 2</option></select>
+                         <select id="reportCardRollNoSelect"><option value="">Select Semester First</option></select>
+                    </div>
+                    <div class="action-buttons" style="margin-top: 20px;">
+                        <button id="generateReportCardBtn"><i class="fa-solid fa-file-invoice"></i>Generate Report Card</button>
+                    </div>
+                </div>
+                <div id="reportCardOutputContainer">
+                    <div id="reportCardOutput"></div>
+                     <div id="reportCardActionButtons" class="no-print" style="text-align: center; margin-top: 20px; display: none; gap: 10px; justify-content: center;">
+                        <button onclick="window.print()"><i class="fa-solid fa-print"></i> Print All</button>
+                        <button id="exportReportCardPdfBtn"><i class="fa-solid fa-file-pdf"></i> Export as PDF</button>
+                    </div>
+                </div>
+            </div>
+            <div id="status" class="section">
+                <div class="card">
+                    <h2><i class="fa-solid fa-clipboard-check"></i>Marks Submission Status</h2>
+                    <div class="controls-grid">
+                        <select id="statusSessionSelect"><option>Select Session</option></select>
+                        <select id="statusSemesterSelect"><option>Select Semester</option></select>
+                    </div>
+                </div>
+                <div id="statusOutput" class="card" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

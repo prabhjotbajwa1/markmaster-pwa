@@ -1,0 +1,129 @@
+/* --- General & Typography --- */
+:root {
+    --primary-color: #6F42C1;
+    --secondary-color: #28A745; --secondary-hover: #218838;
+    --danger-color: #DC3545; --danger-hover: #C82333; --text-color: #343A40;
+    --text-light: #6C757D; --border-color: #DEE2E6; --background-light: #F8F9FA;
+}
+body { font-family: 'Roboto', sans-serif; margin: 0; background: linear-gradient(to bottom, #F8F9FA, #FFFFFF); color: var(--text-color); line-height: 1.6; }
+h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-size: 1.5rem; font-weight: 500; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; }
+h3 { font-size: 1.2rem; font-weight: 500; margin-top: 20px; color: var(--primary-color); }
+
+/* --- Login Screen --- */
+#signin-container {
+    text-align: center;
+    padding: 50px 20px;
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Layout & Spacing --- */
+.main-container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+.navbar { display: flex; background: var(--primary-color); padding: 12px 20px; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); align-items: center; flex-wrap: wrap; }
+.navbar .title { font-size: 1.5rem; font-weight: bold; margin-right: auto; }
+.navbar-buttons { display: flex; flex-wrap: wrap; }
+.navbar button { background: none; border: none; color: white; font-size: 1rem; margin-left: 15px; cursor: pointer; padding: 8px 12px; border-radius: 5px; transition: background-color 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
+.navbar button:hover, .navbar button.active { background-color: rgba(255, 255, 255, 0.15); }
+.section { display: none; padding-top: 20px; }
+.section.active { display: block; }
+.card { background-color: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-bottom: 20px; border: 1px solid var(--border-color); }
+
+/* --- Forms & Controls --- */
+button, input, select { font-family: 'Roboto', sans-serif; padding: 10px 15px; font-size: 1rem; border-radius: 5px; border: 1px solid #CED4DA; vertical-align: middle; transition: all 0.2s ease; box-sizing: border-box; }
+button { background-color: var(--secondary-color); color: white; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500; }
+button:hover { background-color: var(--secondary-hover); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+button:disabled { background-color: #9E9E9E; cursor: not-allowed; box-shadow: none; }
+button.lock-btn { background-color: var(--danger-color); }
+button.lock-btn:hover { background-color: var(--danger-hover); }
+select { appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236C757D%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.65em auto; padding-right: 2.5rem; }
+#batchDetailsInputs input, #batchDetailsInputs select { width: 100%; }
+#batchDetailsInputs label { font-size: 0.9rem; color: var(--text-light); display: block; margin-bottom: 4px; }
+
+/* --- Page-Specific Styles --- */
+.controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; align-items: center; }
+.action-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+.action-buttons button { flex-grow: 1; padding: 12px; }
+.action-buttons button.active { background-color: var(--primary-color); color: white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+
+/* --- Table & Status Styles --- */
+table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+th, td { border: 1px solid #ddd; text-align: left; padding: 12px; }
+th { background-color: #f2f2f2; font-weight: 500; }
+.marks-input { width: 100%; box-sizing: border-box; text-align: center; }
+.marks-input.invalid { border-color: var(--danger-color); background-color: #F8D7DA; }
+td:nth-child(4) { width: 150px; }
+.status-message { padding: 12px; margin-top: 15px; border-radius: 5px; font-weight: 500; border: 1px solid transparent; }
+.status-locked { background-color: #FFF3CD; border-color: #FFEEBA; color: #856404; }
+.status-loading { background-color: #D1ECF1; border-color: #BEE5EB; color: #0C5460; }
+.status-error { background-color: #F8D7DA; border-color: #F5C6CB; color: #721C24; }
+.status-success { background-color: #D4EDDA; border-color: #C3E6CB; color: #155724; }
+.status-completed { background-color: #D4EDDA; color: #155724; text-align: center; font-weight: bold; }
+.status-incomplete { background-color: #F8D7DA; color: #721C24; text-align: center; font-weight: bold; }
+
+/* --- Attendance Styles --- */
+.attendance-summary-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 500; font-size: 1.1rem; flex-wrap: wrap; gap: 15px; }
+#attendanceSummaryCounters { display: flex; gap: 20px; }
+.summary-present { color: var(--secondary-color); }
+.summary-absent { color: var(--danger-color); }
+.mark-all-toggle button { font-size: 0.8rem; padding: 6px 10px; font-weight: normal; }
+.mark-all-toggle button.all-p { background-color: var(--secondary-color); }
+.mark-all-toggle button.all-a { background-color: var(--danger-color); }
+.attendance-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 20px; }
+.student-row { display: flex; align-items: center; padding: 16px 15px; border-radius: 12px; cursor: pointer; transition: background-color 0.2s ease-in-out; border-left: 5px solid transparent; }
+.student-row.present { background-color: #d4edda; border-left-color: #4CAF50; }
+.student-row.absent { background-color: #f8d7da; border-left-color: #F44336; }
+.student-rollno-circle { width: 48px; height: 48px; border-radius: 50%; background-color: #4a4a4a; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 16px; font-weight: 500; margin-right: 15px; flex-shrink: 0; }
+.student-row .student-info { flex-grow: 1; display: flex; flex-direction: column; }
+.student-info .student-name { font-size: 18px; font-weight: 500; }
+.student-info .student-fathers-name { font-size: 14px; margin-top: 2px; }
+.student-row.present .student-name, .student-row.present .student-fathers-name { color: #155724; }
+.student-row.absent .student-name, .student-row.absent .student-fathers-name { color: #721C24; }
+
+/* --- Report Styles --- */
+.report-header-foil { display: flex; align-items: center; margin-bottom: 20px; gap: 15px; }
+.report-logo { max-height: 80px; max-width: 80px; flex-shrink: 0; }
+.report-header-text-foil { flex-grow: 1; text-align: center; }
+.report-details-foil { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; flex-wrap: wrap; }
+.report-details-practical { margin-bottom: 15px; font-size: 14px; line-height: 1.5; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px 0; }
+.page-break { page-break-after: always; }
+.report-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.report-college-details { text-align: center; flex-grow: 1; }
+.report-college-name { font-size: 16pt; font-weight: bold; margin: 0; }
+.report-college-address { font-size: 12pt; margin: 0; color: var(--text-light); }
+.report-title, .report-session { text-align: center; }
+.student-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px;}
+.signature-section { display: flex; justify-content: space-between; margin-top: 60px; }
+
+/* --- Attendance Register Specific Styles --- */
+.rotate-text { width: 30px; height: 80px; vertical-align: middle; text-align: center; position: relative; padding: 0; overflow: visible; }
+.rotated-header { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center; white-space: nowrap; font-size: 0.78rem; line-height: 1; }
+
+@media print {
+    .no-print { display: none !important; }
+    body { margin: 0; background: #fff; }
+    .card { box-shadow: none; border: none; margin: 0; padding: 0; }
+    .page-break { page-break-after: always; }
+    thead { display: table-header-group; }
+    .rotate-text { width: 28px; height: 120px; }
+    .rotated-header { font-size: 8px; }
+}
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; align-items: flex-start; }
+    .navbar-buttons { display: flex; flex-direction: column; width: 100%; margin-top: 10px; }
+    .navbar button { margin-left: 0; width: 100%; justify-content: flex-start; }
+    .controls-grid, .action-buttons { flex-direction: column; }
+    .student-details-grid, .summary-grid { grid-template-columns: 1fr; }
+    .report-card-header { flex-direction: column; }
+}
+@media (max-width: 600px) {
+    .student-row { padding: 18px 15px; font-size: 1.1rem; }
+    .card { padding: 15px; }
+    thead { display: table-header-group; }
+    .rotated-header { -webkit-transform: rotate(0); -moz-transform: rotate(0); -ms-transform: rotate(0); -o-transform: rotate(0); transform: rotate(0); position: static; text-align: center; white-space: normal; padding-top: 5px; }
+    .rotate-text { vertical-align: top; height: auto; padding: 12px; }
+}
