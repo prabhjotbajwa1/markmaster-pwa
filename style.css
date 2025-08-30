@@ -193,4 +193,11 @@ td:nth-child(4) { width: 150px; }
         margin-left: 0;
         border-radius: 0;
     }
+    /* --- Style for Attendance Button Group --- */
+.action-buttons-group {
+    display: flex;
+    gap: 15px; /* Adds space between the buttons */
+    flex-wrap: wrap; /* Allows buttons to stack neatly if the screen is too narrow */
 }
+}
+
