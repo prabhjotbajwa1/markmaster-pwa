@@ -124,10 +124,13 @@ function attachEventListeners() {
 
     overlay.addEventListener('click', closeMenu);
 
-    // This combined loop handles showing the section AND closing the menu
+    // This corrected loop reads the new data-section attribute
     document.querySelectorAll('.navbar-buttons button').forEach(button => {
         button.addEventListener('click', () => {
-            showSection(button.getAttribute('onclick').match(/'([^']+)'/)[1]);
+            const sectionId = button.dataset.section;
+            if (sectionId) {
+                showSection(sectionId);
+            }
             closeMenu();
         });
     });
@@ -1701,6 +1704,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
