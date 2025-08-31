@@ -13,30 +13,28 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-    <div id="signin-container">
+    <div id="loading-container">
+        <h2>Loading AcadVista...</h2>
+    </div>
+
+    <div id="signin-container" style="display:none;">
         <h1>Welcome to AcadVista</h1>
         <p>Please sign in with your authorized Google account to continue.</p>
         <div id="google-signin-button"></div>
     </div>
 
     <div id="app-container" style="display:none;">
-<div class="navbar no-print">
-    <div class="title">AcadVista ©</div>
-    <button id="nav-toggle" class="nav-toggle-btn">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-    <div id="nav-menu" class="nav-menu">
-<div class="navbar-buttons">
-    <button data-section="home" class="active"><i class="fa-solid fa-house"></i>Home</button>
-    <button data-section="attendance"><i class="fa-solid fa-user-check"></i>Attendance</button>
-    <button data-section="marks"><i class="fa-solid fa-pencil-alt"></i>Enter Marks</button>
-    <button data-section="reports"><i class="fa-solid fa-chart-bar"></i>Reports</button>
-    <button data-section="reportCard"><i class="fa-solid fa-id-card"></i>Student Report Card</button>
-    <button data-section="status"><i class="fa-solid fa-check-circle"></i>Status</button>
-</div>
-    </div>
-</div>
-<div id="overlay" class="overlay"></div>
+        <div class="navbar no-print">
+            <div class="title">AcadVista ©</div>
+            <div class="navbar-buttons">
+                <button data-section="home" class="active"><i class="fa-solid fa-house"></i>Home</button>
+                <button data-section="attendance"><i class="fa-solid fa-user-check"></i>Attendance</button>
+                <button data-section="marks"><i class="fa-solid fa-pencil-alt"></i>Enter Marks</button>
+                <button data-section="reports"><i class="fa-solid fa-chart-bar"></i>Reports</button>
+                <button data-section="reportCard"><i class="fa-solid fa-id-card"></i>Student Report Card</button>
+                <button data-section="status"><i class="fa-solid fa-check-circle"></i>Status</button>
+            </div>
+        </div>
 
         <div class="main-container">
             <div id="home" class="section active">
@@ -68,15 +66,10 @@
                         </select>
                         <select id="attendanceTeacherSelect"><option>Select Teacher</option></select>
                     </div>
-                    <div style="margin-top: 20px;">
-                        <p><strong>Date:</strong> <span id="attendanceDate"></span></p>
-                        <div style="margin-top: 10px;">
-                            <label for="attendanceLectureNo"><strong>Lecture No:</strong></label>
-                            <input type="number" id="attendanceLectureNo" value="1" min="1" style="width: 80px;">
-                        <div class="action-buttons-group">
-    <button id="loadAttendanceBtn" disabled><i class="fa-solid fa-users"></i> Load Students to Take Attendance</button>
-    <button id="loadAttendanceRegisterBtn" style="display: none;"><i class="fa-solid fa-calendar-alt"></i>Generate Attendance Register</button>
-</div>
+                    <div class="action-buttons-group">
+                        <button id="loadAttendanceBtn" disabled><i class="fa-solid fa-users"></i> Load Students to Take Attendance</button>
+                        <button id="loadAttendanceRegisterBtn" style="display: none;"><i class="fa-solid fa-calendar-alt"></i>Generate Attendance Register</button>
+                    </div>
                 </div>
                 <div id="attendanceContainer" class="card" style="display:none; margin-top:20px;">
                     <div id="attendanceStatusMessage" class="status-message" style="display: none;"></div>
@@ -214,5 +207,6 @@
 </body>
 
 </html>
+
 
 
