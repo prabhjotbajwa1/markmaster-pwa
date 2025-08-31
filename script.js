@@ -19,15 +19,27 @@ window.onload = function () {
     client_id: CLIENT_ID,
     callback: handleCredentialResponse
   });
+
   google.accounts.id.renderButton(
     document.getElementById("google-signin-button"),
     { theme: "outline", size: "large", text: "signin_with" } 
   );
-  google.accounts.id.prompt(); 
+
+  // This will attempt to sign the user in automatically if they have a session
+  google.accounts.id.prompt((notification) => {
+    // This part runs if the user is NOT automatically signed in
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // If auto-login doesn't happen, hide loading and show the sign-in button
+        document.getElementById('loading-container').style.display = 'none';
+        document.getElementById('signin-container').style.display = 'block';
+    }
+  });
 };
 
 function handleCredentialResponse(response) {
   userAuthToken = response.credential;
+  // Hide both loading and sign-in containers, show the main app
+  document.getElementById('loading-container').style.display = 'none';
   document.getElementById('signin-container').style.display = 'none';
   document.getElementById('app-container').style.display = 'block';
   initializeApp(); 
@@ -1704,6 +1716,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
