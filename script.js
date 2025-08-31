@@ -341,11 +341,6 @@ async function loadAttendance() {
           }
 }
 async function proceedToLoad() {
-    // --- START OF NEW/CORRECTED CODE ---
-    document.getElementById('attendanceSummary').style.display = 'flex';
-    document.getElementById('registerActionButtons').style.display = 'none';
-    // --- END OF NEW/CORRECTED CODE ---
-
     document.getElementById('attendanceContainer').style.display = 'block';
     const loadBtn = document.getElementById('loadAttendanceBtn');
     const subjectSelect = document.getElementById('attendanceSubjectSelect');
@@ -362,6 +357,20 @@ async function proceedToLoad() {
     try {
         const savedAttendance = await callAppsScript('getAttendance', [criteria]);
         const students = await callAppsScript('getStudentList', [criteria.session, criteria.semester, criteria.subjectCode, criteria.batch]);
+
+        // --- NEW LOGIC TO SHOW DIALOG BOX ---
+        if (!students || students.length === 0) {
+            alert("No students have been found for this session and semester combination.");
+            
+            // Reset the view so the user can try again
+            document.getElementById('attendanceContainer').style.display = 'none';
+            document.getElementById('attendanceSelectionCard').style.display = 'block';
+            loadBtn.disabled = false;
+            loadBtn.innerHTML = '<i class="fa-solid fa-users"></i> Load Students to Take Attendance';
+            return; // Stop the function here
+        }
+        // --- END OF NEW LOGIC ---
+
         buildAttendanceList(students, new Map(savedAttendance));
         loadBtn.disabled = false;
         loadBtn.innerHTML = '<i class="fa-solid fa-users"></i> Load Students to Take Attendance';
@@ -1723,6 +1732,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
