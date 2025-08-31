@@ -228,13 +228,15 @@ function setupDropdowns(data) {
            });
 }
 function showSection(id) {
-          document.querySelectorAll('.navbar button').forEach(btn => btn.classList.remove('active'));
-          document.querySelector(`.navbar button[onclick*="'${id}'"]`).classList.add('active');
-          document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-          document.getElementById(id).classList.add('active');
-          if (id === 'reports' || id === 'reportCard') {
-              loadPdfLibraries();
-          }
+    // Deactivate all main content sections
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    // Activate the one that was clicked
+    document.getElementById(id).classList.add('active');
+
+    // Deactivate all navigation buttons
+    document.querySelectorAll('.navbar-buttons button').forEach(btn => btn.classList.remove('active'));
+    // Activate the correct navigation button by looking for the matching data-section
+    document.querySelector(`.navbar-buttons button[data-section="${id}"]`).classList.add('active');
 }
 function onError(error) {
           const statusMessage = document.getElementById('statusMessage');
@@ -1716,6 +1718,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
