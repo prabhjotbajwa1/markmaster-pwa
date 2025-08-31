@@ -341,6 +341,11 @@ async function loadAttendance() {
           }
 }
 async function proceedToLoad() {
+    // --- START OF NEW/CORRECTED CODE ---
+    document.getElementById('attendanceSummary').style.display = 'flex';
+    document.getElementById('registerActionButtons').style.display = 'none';
+    // --- END OF NEW/CORRECTED CODE ---
+
     document.getElementById('attendanceContainer').style.display = 'block';
     const loadBtn = document.getElementById('loadAttendanceBtn');
     const subjectSelect = document.getElementById('attendanceSubjectSelect');
@@ -1718,6 +1723,7 @@ async function populateReportCardRollNumbers() {
           }
 
 }
+
 
 
 
